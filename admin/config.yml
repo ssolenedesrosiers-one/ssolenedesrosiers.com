@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: ssolenedesrosiers-one/ssolenedesrosiers.com
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "essays"
+    label: "Essays"
+    label_singular: "Essay"
+    folder: "content/essays"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
+      - { label: "Room", name: "section", widget: "select", options: ["Essay", "Jungian & Mythic", "The Seven Gates", "Devotional", "Memoir", "Other Writing"], default: "Essay" }
+      - { label: "Short introduction", name: "summary", widget: "text", hint: "A sentence or two that appears on the essay card." }
+      - { label: "Featured image (optional)", name: "image", widget: "image", required: false }
+      - { label: "Essay", name: "body", widget: "markdown" }
+  - name: "artwork"
+    label: "Artwork"
+    label_singular: "Artwork"
+    folder: "content/artwork"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Artwork", name: "image", widget: "image" }
+      - { label: "Caption (optional)", name: "caption", widget: "text", required: false }
+      - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }

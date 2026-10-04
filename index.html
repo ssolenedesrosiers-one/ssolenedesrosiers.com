@@ -1181,6 +1181,48 @@
   .gallery-title { font-family:'Cormorant Garamond',serif; font-size:1.65rem; font-weight:300; margin-top:0.4rem; color:var(--bone); }
   .gallery-note { font-family:'IM Fell English',serif; font-style:italic; font-size:0.85rem; color:var(--smoke); margin-top:0.5rem; }
 
+  /* ── ESSAYS & ARTWORK ── */
+  .essays-panel { max-width:1200px; margin:0 auto; padding:5rem 3rem 7rem; }
+  .essays-panel .section-intro { padding:0 0 2.5rem; text-align:left; margin:0; }
+  .essays-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; }
+  .essay-card {
+    min-height:300px;
+    padding:2.1rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    text-align:left;
+    color:var(--bone);
+    background:linear-gradient(145deg, rgba(18,23,35,.95), rgba(10,12,18,.98));
+    border:1px solid rgba(168,128,42,.16);
+    cursor:pointer;
+    transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .essay-card:hover { transform:translateY(-3px); border-color:rgba(201,168,76,.5); background:linear-gradient(145deg, rgba(25,34,52,.98), rgba(10,12,18,.98)); }
+  .essay-card-meta { font-size:.56rem; letter-spacing:.23em; text-transform:uppercase; color:var(--gold-light); opacity:.78; margin-bottom:1rem; }
+  .essay-card-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:2rem; line-height:1.12; margin-bottom:1rem; }
+  .essay-card-summary { font-family:'Crimson Text',serif; font-style:italic; font-size:.98rem; color:var(--smoke); line-height:1.7; }
+  .content-empty { grid-column:1 / -1; padding:3.5rem 1rem; text-align:center; font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:var(--smoke); border-top:1px solid rgba(168,128,42,.12); border-bottom:1px solid rgba(168,128,42,.12); }
+  .artwork-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; margin:3rem 0 1.25rem; }
+  .artwork-card { min-height:290px; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; position:relative; background:#111; border:1px solid rgba(168,128,42,.16); }
+  .artwork-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:transform .5s ease, opacity .5s ease; }
+  .artwork-card:hover img { transform:scale(1.04); opacity:1; }
+  .artwork-card::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(5,6,10,.93), rgba(5,6,10,.06) 65%); }
+  .artwork-card-copy { position:relative; z-index:1; padding:1.5rem; }
+  .artwork-card-copy h3 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:1.7rem; line-height:1.15; color:var(--bone); }
+  .artwork-card-copy p { margin-top:.45rem; font-family:'Crimson Text',serif; font-style:italic; color:var(--smoke); }
+  .article-modal { position:fixed; inset:0; z-index:500; display:none; padding:5vh 5vw; background:rgba(5,6,10,.9); overflow-y:auto; }
+  .article-modal.open { display:block; }
+  .article-paper { max-width:760px; margin:0 auto; padding:3.5rem clamp(1.5rem,6vw,5rem); background:#11151d; border:1px solid rgba(201,168,76,.28); box-shadow:0 22px 80px rgba(0,0,0,.5); }
+  .article-close { float:right; background:none; border:0; color:var(--gold-light); font-family:'Lato',sans-serif; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; }
+  .article-date { clear:both; padding-top:1rem; font-size:.58rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-light); opacity:.75; }
+  .article-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2.5rem,6vw,4.4rem); line-height:1.05; margin:1rem 0 2.5rem; color:var(--bone); }
+  .article-featured-image { display:block; width:100%; max-height:520px; object-fit:contain; background:#090a0e; margin:0 0 2.2rem; }
+  .article-body { font-family:'Crimson Text',serif; font-size:1.22rem; line-height:1.9; color:var(--bone); }
+  .article-body p + p { margin-top:1.25rem; }
+  .article-body h2, .article-body h3 { font-family:'Cormorant Garamond',serif; font-weight:300; color:var(--gold-light); margin:2rem 0 .75rem; }
+  .article-body blockquote { margin:1.7rem 0; padding:1rem 1.5rem; border-left:1px solid var(--deep-gold); color:var(--smoke); font-style:italic; }
+
   .scriptorium-panel {
     position: relative;
     overflow: hidden;
@@ -1232,6 +1274,8 @@
     .gallery-grid { grid-template-columns:1fr; grid-auto-rows:220px; }
     .gallery-card:first-child { grid-row:span 1; }
     .gallery-panel, .scriptorium-panel { padding-left:1.5rem; padding-right:1.5rem; }
+    .essays-panel { padding-left:1.5rem; padding-right:1.5rem; }
+    .essays-grid, .artwork-grid { grid-template-columns:1fr; }
   }
 
 </style>
@@ -1279,6 +1323,7 @@
     <button class="tab-btn" data-tab="jungian">Jungian &amp; Mythic</button>
     <button class="tab-btn" data-tab="inanna">The Seven Gates</button>
     <button class="tab-btn" data-tab="devotional">Devotional</button>
+    <button class="tab-btn" data-tab="essays">Essays</button>
     <button class="tab-btn" data-tab="memoir">The Memoir</button>
     <button class="tab-btn" data-tab="gallery">Gallery</button>
     <button class="tab-btn oxblood-tab" data-tab="scriptorium">Scriptorium</button>
@@ -1298,6 +1343,20 @@
     </div>
     <div class="about-rule"></div>
     <p class="about-sig">S. Soléne Desrosiers · The Soléne Archive</p>
+  </div>
+</div>
+
+<!-- ══ TAB: ESSAYS ══ -->
+<div class="tab-panel" id="tab-essays">
+  <div class="essays-panel">
+    <div class="section-intro">
+      <p class="section-intro-eyebrow">The Writing Room — Essays, Stories &amp; Reflections</p>
+      <h2 class="section-intro-title" style="text-align:left;">Words with somewhere to live.</h2>
+      <p class="section-intro-desc" style="text-align:left;">New writing gathers here as it is published from the Studio.</p>
+    </div>
+    <div class="essays-grid" id="essays-list" aria-live="polite">
+      <p class="content-empty">The shelves are ready for the first essay.</p>
+    </div>
   </div>
 </div>
 
@@ -1517,6 +1576,8 @@
       <p class="section-intro-desc" style="text-align:left;">Not every image has to explain itself. This room is for the work I want to live with — finished pieces, photographs, visual studies, and images that became part of the larger mythology.</p>
     </div>
 
+    <div class="artwork-grid" id="artwork-list" aria-live="polite"></div>
+
     <div class="gallery-grid">
       <div class="gallery-card">
         <div class="gallery-card-content">
@@ -1617,6 +1678,16 @@
   <div class="footer-note">The Soléne Archive · A living collection</div>
 </footer>
 
+<div class="article-modal" id="article-modal" role="dialog" aria-modal="true" aria-label="Essay">
+  <article class="article-paper">
+    <button class="article-close" id="article-close" type="button">Close ×</button>
+    <p class="article-date" id="article-date"></p>
+    <h2 class="article-title" id="article-title"></h2>
+    <img class="article-featured-image" id="article-image" alt="" hidden>
+    <div class="article-body" id="article-body"></div>
+  </article>
+</div>
+
 <script>
   // Tab switching
   const tabBtns = document.querySelectorAll('.tab-btn');
@@ -1643,6 +1714,101 @@
       card.style.transition = 'transform 0.35s ease, border-color 0.35s';
     });
   });
+
+  // Content published from the private Studio. The site remains simple and fast,
+  // while essays and artwork can be added without editing this page.
+  const essaysList = document.getElementById('essays-list');
+  const artworkList = document.getElementById('artwork-list');
+  const articleModal = document.getElementById('article-modal');
+  const articleTitle = document.getElementById('article-title');
+  const articleDate = document.getElementById('article-date');
+  const articleImage = document.getElementById('article-image');
+  const articleBody = document.getElementById('article-body');
+
+  const escapeHtml = value => String(value || '').replace(/[&<>'"]/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[char]);
+  const niceDate = value => value ? new Intl.DateTimeFormat('en', { year:'numeric', month:'long', day:'numeric' }).format(new Date(value)) : '';
+
+  function markdownToHtml(markdown) {
+    const safe = escapeHtml(markdown || '');
+    const blocks = safe.trim().split(/\n{2,}/).filter(Boolean).map(block => {
+      if (/^###\s+/.test(block)) return '<h3>' + block.replace(/^###\s+/, '') + '</h3>';
+      if (/^##\s+/.test(block)) return '<h2>' + block.replace(/^##\s+/, '') + '</h2>';
+      if (/^&gt;\s+/.test(block)) return '<blockquote>' + block.replace(/^&gt;\s+/gm, '').replace(/\n/g, '<br>') + '</blockquote>';
+      return '<p>' + block.replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>') + '</p>';
+    });
+    return blocks.join('');
+  }
+
+  function openEssay(essay) {
+    articleTitle.textContent = essay.title || 'Untitled';
+    articleDate.textContent = [essay.section, niceDate(essay.date)].filter(Boolean).join(' · ');
+    articleBody.innerHTML = markdownToHtml(essay.body);
+    if (essay.image) {
+      articleImage.src = essay.image;
+      articleImage.alt = essay.title || 'Featured image';
+      articleImage.hidden = false;
+    } else {
+      articleImage.hidden = true;
+      articleImage.removeAttribute('src');
+    }
+    articleModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeEssay() {
+    articleModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('article-close').addEventListener('click', closeEssay);
+  articleModal.addEventListener('click', event => { if (event.target === articleModal) closeEssay(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeEssay(); });
+
+  async function loadArchiveContent() {
+    try {
+      const [essayResponse, artworkResponse] = await Promise.all([
+        fetch('/data/essays.json', { cache:'no-store' }),
+        fetch('/data/artwork.json', { cache:'no-store' })
+      ]);
+      const essays = essayResponse.ok ? await essayResponse.json() : [];
+      const artwork = artworkResponse.ok ? await artworkResponse.json() : [];
+
+      if (essays.length) {
+        essaysList.innerHTML = '';
+        essays.forEach(essay => {
+          const card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'essay-card';
+          card.innerHTML = '<p class="essay-card-meta">' + escapeHtml([essay.section, niceDate(essay.date)].filter(Boolean).join(' · ')) + '</p>' +
+            '<h3 class="essay-card-title">' + escapeHtml(essay.title || 'Untitled') + '</h3>' +
+            '<p class="essay-card-summary">' + escapeHtml(essay.summary || 'Read this piece →') + '</p>';
+          card.addEventListener('click', () => openEssay(essay));
+          essaysList.appendChild(card);
+        });
+      }
+
+      if (artwork.length) {
+        artworkList.innerHTML = '';
+        artwork.forEach(art => {
+          const card = document.createElement('article');
+          card.className = 'artwork-card';
+          const image = document.createElement('img');
+          image.src = art.image;
+          image.alt = art.title || 'Artwork';
+          image.loading = 'lazy';
+          const copy = document.createElement('div');
+          copy.className = 'artwork-card-copy';
+          copy.innerHTML = '<h3>' + escapeHtml(art.title || 'Untitled artwork') + '</h3>' + (art.caption ? '<p>' + escapeHtml(art.caption) + '</p>' : '');
+          card.append(image, copy);
+          artworkList.appendChild(card);
+        });
+      }
+    } catch (error) {
+      // The fixed parts of the archive remain available if a content file is absent.
+    }
+  }
+
+  loadArchiveContent();
 </script>
 
 </body>
