@@ -39,15 +39,25 @@ async function readCollection(folder) {
   }
 }
 
-const [essays, artwork] = await Promise.all([
+async function readJson(file, fallback = {}) {
+  try {
+    return JSON.parse(await readFile(file, 'utf8'));
+  } catch {
+    return fallback;
+  }
+}
+
+const [essays, artwork, site] = await Promise.all([
   readCollection(folders.essays),
-  readCollection(folders.artwork)
+  readCollection(folders.artwork),
+  readJson('content/settings/site.json')
 ]);
 
 await mkdir('data', { recursive: true });
 await Promise.all([
   writeFile('data/essays.json', JSON.stringify(essays, null, 2) + '\n'),
-  writeFile('data/artwork.json', JSON.stringify(artwork, null, 2) + '\n')
+  writeFile('data/artwork.json', JSON.stringify(artwork, null, 2) + '\n'),
+  writeFile('data/site.json', JSON.stringify(site, null, 2) + '\n')
 ]);
 
-console.log(`Prepared ${essays.length} essays and ${artwork.length} artwork entries.`);
+console.log(`Prepared ${essays.length} essays, ${artwork.length} artwork entries, and website words.`);

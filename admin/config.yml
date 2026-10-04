@@ -37,3 +37,28 @@ collections:
       - { label: "Artwork", name: "image", widget: "image" }
       - { label: "Caption (optional)", name: "caption", widget: "text", required: false }
       - { label: "Date", name: "date", widget: "datetime", default: "{{now}}" }
+  - name: "site_settings"
+    label: "Website words"
+    files:
+      - name: "home"
+        label: "Home page & Archive"
+        file: "content/settings/site.json"
+        format: "json"
+        fields:
+          - { label: "Name in the top-left corner", name: "nav_brand", widget: "string" }
+          - { label: "Substack link", name: "substack_url", widget: "string", required: false, hint: "Paste the full web address, beginning with https://" }
+          - { label: "Small line above the main title", name: "hero_eyebrow", widget: "string" }
+          - { label: "Main title — first line", name: "hero_title_line_one", widget: "string" }
+          - { label: "Main title — second line", name: "hero_title_line_two", widget: "string" }
+          - { label: "Main title — gold italic line", name: "hero_title_emphasis", widget: "string" }
+          - { label: "Welcome paragraph", name: "hero_bio", widget: "text" }
+          - { label: "Highlighted final sentence", name: "hero_highlight", widget: "text", required: false }
+          - { label: "Small invitation beneath the welcome", name: "archive_kicker", widget: "string", required: false }
+          - { label: "Signature below the welcome", name: "hero_signature", widget: "string" }
+          - { label: "Hero image (optional)", name: "hero_image", widget: "image", required: false, hint: "A square or tall image works best. Leave empty to keep the rose." }
+          - { label: "Words beneath the hero image", name: "emblem_text", widget: "text", required: false }
+          - { label: "Archive section small heading", name: "about_eyebrow", widget: "string" }
+          - { label: "Archive section large quotation", name: "about_statement", widget: "text" }
+          - { label: "Archive section body", name: "about_body", widget: "markdown", hint: "Use a blank line between paragraphs." }
+          - { label: "Archive section signature", name: "about_signature", widget: "string" }
+          - { label: "Footer line", name: "footer_note", widget: "string" }

@@ -241,6 +241,13 @@
     animation: roseBreath 6s ease-in-out infinite;
   }
 
+  .emblem-image {
+    width: min(66vw, 360px);
+    max-height: 440px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.34));
+  }
+
   .emblem-rule {
     width: 1px;
     height: 80px;
@@ -1284,11 +1291,11 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-brand" href="#">S. Soléne Desrosiers</a>
+  <a class="nav-brand" id="nav-brand" href="#">S. Soléne Desrosiers</a>
   <ul class="nav-links">
     <li><a href="#archive">The Archive</a></li>
     <li><a href="#rooms">Rooms</a></li>
-    <li><a href="#">Substack</a></li>
+    <li><a id="nav-substack" href="https://ssolene.substack.com">Substack</a></li>
   </ul>
 </nav>
 
@@ -1298,20 +1305,21 @@
 
   <div class="hero-left">
     <div class="hero-content">
-      <p class="hero-eyebrow">The Soléne Archive</p>
-      <h1 class="hero-title">A living archive<br>of story, symbol<br><em>& transformation.</em></h1>
+      <p class="hero-eyebrow" id="hero-eyebrow">The Soléne Archive</p>
+      <h1 class="hero-title"><span id="hero-title-line-one">A living archive</span><br><span id="hero-title-line-two">of story, symbol</span><br><em id="hero-title-emphasis">& transformation.</em></h1>
       <div class="hero-rule"></div>
-      <p class="hero-bio">A home for the work I want to keep close: writing, art, myth, photographs, prayers, and the worlds that grew between them. <strong>Visitors are welcome. The archive comes first.</strong></p>
-      <p class="archive-kicker">Enter by curiosity, not urgency</p>
-      <p class="hero-sig">S. Soléne Desrosiers 🌹</p>
+      <p class="hero-bio"><span id="hero-bio">A home for the work I want to keep close: writing, art, myth, photographs, prayers, and the worlds that grew between them.</span> <strong id="hero-highlight">Visitors are welcome. The archive comes first.</strong></p>
+      <p class="archive-kicker" id="archive-kicker">Enter by curiosity, not urgency</p>
+      <p class="hero-sig" id="hero-signature">S. Soléne Desrosiers 🌹</p>
     </div>
   </div>
 
   <div class="hero-right">
     <div class="hero-emblem">
-      <div class="emblem-rose">🌹</div>
+      <div class="emblem-rose" id="hero-rose">🌹</div>
+      <img class="emblem-image" id="hero-image" alt="" hidden>
       <div class="emblem-rule"></div>
-      <p class="emblem-text">writer · artist · mystic · keeper of the archive</p>
+      <p class="emblem-text" id="emblem-text">writer · artist · mystic · keeper of the archive</p>
     </div>
   </div>
 </section>
@@ -1334,15 +1342,15 @@
 <!-- ══ TAB: THE WRITING / ABOUT ══ -->
 <div class="tab-panel active" id="tab-about"><span id="archive"></span>
   <div class="about-panel">
-    <p class="about-eyebrow">The Archive — Collected Works &amp; Living Rooms</p>
-    <p class="about-statement">"This is not a feed to keep up with. It is a place to wander, return, and remember."</p>
-    <div class="about-body">
+    <p class="about-eyebrow" id="about-eyebrow">The Archive — Collected Works &amp; Living Rooms</p>
+    <p class="about-statement" id="about-statement">"This is not a feed to keep up with. It is a place to wander, return, and remember."</p>
+    <div class="about-body" id="about-body">
       <p>This archive began the way most living things do: without a master plan. A prayer became an image. An image opened a myth. A myth opened a story. A story became a way of seeing a life.</p>
       <p>What is gathered here is not arranged for an algorithm or a publishing calendar. It is arranged by <strong>meaning, kinship, and return.</strong> Some rooms hold finished work. Some hold work still becoming. Some are simply here because I love what lives inside them.</p>
       <p>There is writing, visual art, photography, devotion, fairy tale, Jungian reflection, the Seven Gates, and the private pages behind the red door. This is a collection first. Sharing is an invitation, not the organizing principle. 🌹</p>
     </div>
     <div class="about-rule"></div>
-    <p class="about-sig">S. Soléne Desrosiers · The Soléne Archive</p>
+    <p class="about-sig" id="about-signature">S. Soléne Desrosiers · The Soléne Archive</p>
   </div>
 </div>
 
@@ -1675,7 +1683,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">S. Soléne Desrosiers 🌹</div>
-  <div class="footer-note">The Soléne Archive · A living collection</div>
+  <div class="footer-note" id="footer-note">The Soléne Archive · A living collection</div>
 </footer>
 
 <div class="article-modal" id="article-modal" role="dialog" aria-modal="true" aria-label="Essay">
@@ -1739,6 +1747,49 @@
     return blocks.join('');
   }
 
+  function updateText(id, value) {
+    if (typeof value !== 'string') return;
+    document.getElementById(id).textContent = value;
+  }
+
+  function applySiteSettings(site) {
+    if (!site || typeof site !== 'object') return;
+
+    [
+      ['nav-brand', site.nav_brand],
+      ['hero-eyebrow', site.hero_eyebrow],
+      ['hero-title-line-one', site.hero_title_line_one],
+      ['hero-title-line-two', site.hero_title_line_two],
+      ['hero-title-emphasis', site.hero_title_emphasis],
+      ['hero-bio', site.hero_bio],
+      ['hero-highlight', site.hero_highlight],
+      ['archive-kicker', site.archive_kicker],
+      ['hero-signature', site.hero_signature],
+      ['emblem-text', site.emblem_text],
+      ['about-eyebrow', site.about_eyebrow],
+      ['about-statement', site.about_statement],
+      ['about-signature', site.about_signature],
+      ['footer-note', site.footer_note]
+    ].forEach(([id, value]) => updateText(id, value));
+
+    if (typeof site.about_body === 'string' && site.about_body.trim()) {
+      document.getElementById('about-body').innerHTML = markdownToHtml(site.about_body);
+    }
+
+    if (typeof site.substack_url === 'string' && /^https?:\/\//i.test(site.substack_url)) {
+      document.getElementById('nav-substack').href = site.substack_url;
+    }
+
+    const heroRose = document.getElementById('hero-rose');
+    const heroImage = document.getElementById('hero-image');
+    if (typeof site.hero_image === 'string' && site.hero_image.trim()) {
+      heroImage.src = site.hero_image;
+      heroImage.alt = site.hero_title_line_one || 'The Soléne Archive';
+      heroImage.hidden = false;
+      heroRose.hidden = true;
+    }
+  }
+
   function openEssay(essay) {
     articleTitle.textContent = essay.title || 'Untitled';
     articleDate.textContent = [essay.section, niceDate(essay.date)].filter(Boolean).join(' · ');
@@ -1766,12 +1817,15 @@
 
   async function loadArchiveContent() {
     try {
-      const [essayResponse, artworkResponse] = await Promise.all([
+      const [essayResponse, artworkResponse, siteResponse] = await Promise.all([
         fetch('/data/essays.json', { cache:'no-store' }),
-        fetch('/data/artwork.json', { cache:'no-store' })
+        fetch('/data/artwork.json', { cache:'no-store' }),
+        fetch('/data/site.json', { cache:'no-store' })
       ]);
       const essays = essayResponse.ok ? await essayResponse.json() : [];
       const artwork = artworkResponse.ok ? await artworkResponse.json() : [];
+      const site = siteResponse.ok ? await siteResponse.json() : {};
+      applySiteSettings(site);
 
       if (essays.length) {
         essaysList.innerHTML = '';
